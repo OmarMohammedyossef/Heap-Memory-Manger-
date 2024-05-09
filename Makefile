@@ -16,9 +16,9 @@ TARGET:= a
 
 all: clean build run
 
-dynamic: clean DYNAMIC run
+dynamic: clean DYNAMIC 
 
-static: clean STATIC run
+static: clean STATIC 
 
 
 STATIC:
