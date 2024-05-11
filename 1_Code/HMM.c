@@ -92,12 +92,16 @@ void *My_malloc (size_t size)
 	{
 		size= Minmum_size;
 	}
-	if (size >= Maxmum_size)
+	else if (size >= Maxmum_size)
 	{
 		return NULL;
 	}
-   /* Align size to nearest multiple of 8 */
-   size = (((size + 7) / 8) * 8);
+	else 
+	{
+		/* Align size to nearest multiple of 8 */
+        size = (((size + 7) / 8) * 8);
+	}
+   
    /* Handle the case of the first node in the list */
    if (firet_p == NULL)
       {
@@ -110,7 +114,7 @@ void *My_malloc (size_t size)
 	            current_program_break = (meta_data_t *) sbrk (0);
 	            if (current_program_break == (void *) -1)
 	               {
-	                  return (void *)-1;
+	                  return NULL;
 	               }
 	         }
          if ((insert_beginning (&firet_p, size, False)) == False)	/*  creat first node in my list  */
@@ -190,7 +194,7 @@ void *My_malloc (size_t size)
 		               current_program_break = (meta_data_t *) sbrk (0);
 		               if (current_program_break == (void *) -1)
 		                   {
-		                      return (void *)-1;
+		                      return NULL;
 		                   }
 		           }
 		        TempNode =(meta_data_t *) ((uint8_t *) TempNode + TempNode->size +size_meta_data);
@@ -201,8 +205,6 @@ void *My_malloc (size_t size)
 		        return ((uint8_t *) TempNode + size_meta_data);
 		    }
 		     else {/* Nothing -> error */ }
-      }
-  return NULL;			/* Unable to allocate memory */
 }
 
 /************************************* My_free Implementation **********************************/
@@ -307,7 +309,6 @@ void *My_calloc (size_t element_number, size_t element_size)
 	            return NULL;		/* Unable to allocate */
 	         }
  	   }
-   return NULL;			/* Unable to allocate */
 }
 
 /*********************************** realloc Implementation *********************************/
